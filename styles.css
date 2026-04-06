@@ -418,64 +418,176 @@ a:hover { color: var(--accent); }
 
 /* Install */
 .install { padding: 100px 0; border-top: 1px solid var(--border); }
-.install-card {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  max-width: 820px;
-  margin: 0 auto;
+
+.install-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 920px;
+  margin: 0 auto 32px;
 }
-.install-steps {
+@media (max-width: 820px) { .install-tabs { grid-template-columns: 1fr; } }
+
+.install-tab {
+  background: #050a15;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+}
+.install-tab-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border);
+}
+.install-os {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+.install-shell {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.install-tab pre {
+  margin: 0;
+  padding: 20px 22px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.install-tab pre code { color: inherit; font-family: inherit; }
+
+.install-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  max-width: 920px;
+  margin: 0 auto 28px;
+}
+@media (max-width: 820px) { .install-meta { grid-template-columns: 1fr; } }
+
+.install-meta-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+}
+.install-meta-card h4 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  margin: 0 0 16px;
+}
+.install-meta-card p { font-size: 0.95rem; margin: 0 0 10px; }
+.install-actions {
   list-style: none;
   counter-reset: step;
   padding: 0;
   margin: 0;
 }
-.install-steps li {
+.install-actions li {
   counter-increment: step;
   position: relative;
-  padding-left: 52px;
-  padding-bottom: 28px;
-  border-left: 1px dashed var(--border);
-  margin-left: 16px;
+  padding: 8px 0 8px 36px;
+  font-size: 0.94rem;
+  color: var(--text);
+  border-bottom: 1px dashed var(--border);
 }
-.install-steps li:last-child { padding-bottom: 0; border-left: 1px dashed transparent; }
-.install-steps li::before {
+.install-actions li:last-child { border-bottom: none; }
+.install-actions li::before {
   content: counter(step, decimal-leading-zero);
   position: absolute;
-  left: -16px;
-  top: -2px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1px solid rgba(52, 211, 153, 0.4);
-  color: var(--accent);
+  left: 0;
+  top: 8px;
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  color: var(--accent);
+  background: rgba(52, 211, 153, 0.10);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  width: 26px;
+  height: 22px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.install-steps h4 {
-  margin: 0 0 10px;
-  color: #f8fafc;
-  font-size: 1rem;
+.install-url {
+  margin: 8px 0 14px;
+  background: #050a15;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--accent);
 }
-.install-steps pre {
+.install-url code { color: inherit; font-family: inherit; }
+.install-update {
+  font-size: 0.85rem;
+  color: var(--text-faint);
   margin: 0;
+}
+.install-update code {
+  font-family: var(--mono);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #f8fafc;
+  font-size: 0.85rem;
+}
+
+.install-manual {
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+}
+.install-manual summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+}
+.install-manual summary::after {
+  content: "+";
+  color: var(--accent);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.install-manual[open] summary::after { content: "−"; }
+.install-manual pre {
+  margin: 16px 0 0;
   background: #050a15;
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 14px 18px;
+  padding: 16px 20px;
   font-family: var(--mono);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #cbd5e1;
   overflow-x: auto;
+  white-space: pre-wrap;
 }
-.install-steps pre code { color: inherit; font-family: inherit; }
+.install-manual pre code { color: inherit; font-family: inherit; }
 
 /* License */
 .license { padding: 100px 0; border-top: 1px solid var(--border); }

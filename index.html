@@ -73,16 +73,18 @@
               <span class="dot dot-g"></span>
               <span class="terminal-title">~/vibe-mybooks</span>
             </div>
-            <pre class="terminal-body"><span class="t-prompt">$</span> <span class="t-cmd">docker compose up -d</span>
-<span class="t-out">[+] Running 5/5</span>
+            <pre class="terminal-body"><span class="t-prompt">$</span> <span class="t-cmd">curl -fsSL https://raw.githubusercontent.com/\
+KisaesDevLab/Vibe-MyBooks/main/scripts/install.sh | bash</span>
+<span class="t-out">→ Cloning Vibe-MyBooks...</span>
+<span class="t-out">→ Generating secure secrets...</span>
+<span class="t-out">→ Building Docker images...</span>
 <span class="t-ok"> ✔ postgres   Started</span>
 <span class="t-ok"> ✔ redis      Started</span>
 <span class="t-ok"> ✔ api        Started</span>
 <span class="t-ok"> ✔ worker     Started</span>
 <span class="t-ok"> ✔ web        Started</span>
 
-<span class="t-prompt">$</span> <span class="t-cmd">open http://localhost:3000</span>
-<span class="t-dim">→ Vibe MyBooks is ready.</span><span class="cursor">▍</span></pre>
+<span class="t-dim">→ Vibe MyBooks is ready at http://localhost:5173</span><span class="cursor">▍</span></pre>
           </div>
         </div>
       </div>
@@ -231,31 +233,54 @@
       <div class="container">
         <div class="section-head">
           <span class="eyebrow">Quick start</span>
-          <h2>Up and running in one command.</h2>
-          <p>Linux, macOS, or Windows. All you need is Docker.</p>
+          <h2>One line. One install script. Done.</h2>
+          <p>The installer clones the repo, generates secure secrets, builds the Docker images, and starts every service. All you need is Docker.</p>
         </div>
-        <div class="install-card">
-          <ol class="install-steps">
-            <li>
-              <h4>Clone the repo</h4>
-              <pre><code>git clone https://github.com/KisaesDevLab/Vibe-MyBooks.git
-cd Vibe-MyBooks</code></pre>
-            </li>
-            <li>
-              <h4>Configure your environment</h4>
-              <pre><code>cp .env.example .env
-# edit .env with your DB password, AI provider key, etc.</code></pre>
-            </li>
-            <li>
-              <h4>Bring it up</h4>
-              <pre><code>docker compose up -d</code></pre>
-            </li>
-            <li>
-              <h4>Open the app</h4>
-              <pre><code>open http://localhost:3000</code></pre>
-            </li>
-          </ol>
+
+        <div class="install-tabs" role="tablist">
+          <div class="install-tab" role="tab">
+            <div class="install-tab-head">
+              <span class="install-os">Linux / macOS</span>
+              <span class="install-shell">bash</span>
+            </div>
+            <pre><code>curl -fsSL https://raw.githubusercontent.com/KisaesDevLab/Vibe-MyBooks/main/scripts/install.sh | bash</code></pre>
+          </div>
+
+          <div class="install-tab" role="tab">
+            <div class="install-tab-head">
+              <span class="install-os">Windows</span>
+              <span class="install-shell">PowerShell (Admin)</span>
+            </div>
+            <pre><code>irm https://raw.githubusercontent.com/KisaesDevLab/Vibe-MyBooks/main/scripts/install.ps1 | iex</code></pre>
+          </div>
         </div>
+
+        <div class="install-meta">
+          <div class="install-meta-card">
+            <h4>What the installer does</h4>
+            <ol class="install-actions">
+              <li>Clones the Vibe MyBooks repository</li>
+              <li>Generates secure secrets for Postgres, Redis, and the API</li>
+              <li>Builds the Docker images for web, API, and worker</li>
+              <li>Starts every service with Docker Compose</li>
+            </ol>
+          </div>
+          <div class="install-meta-card">
+            <h4>When it's done</h4>
+            <p>Open the app at:</p>
+            <pre class="install-url"><code>http://localhost:5173</code></pre>
+            <p class="install-update">To upgrade later, re-run the installer with <code>--update</code> (Linux/macOS) or <code>-update</code> (PowerShell).</p>
+          </div>
+        </div>
+
+        <details class="install-manual">
+          <summary>Prefer manual setup?</summary>
+          <pre><code>git clone https://github.com/KisaesDevLab/Vibe-MyBooks.git
+cd Vibe-MyBooks
+cp .env.example .env
+npx tsx scripts/generate-secrets.ts
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d</code></pre>
+        </details>
       </div>
     </section>
 
